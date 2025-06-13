@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Disaster AI</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    #map { height: 500px; width: 100%; margin: 20px 0; border: 1px solid #ddd; }
+    .controls { margin: 10px 0; display: flex; gap: 10px; }
+    button { padding: 8px 15px; background: #4285f4; color: white; border: none; cursor: pointer; }
+    #results { padding: 15px; background: #f5f5f5; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <header style="text-align: center; padding: 40px 0; background: #f0f8ff;">
+    <h1>Smart Disaster AI</h1>
+    <p>Real-time flood and fire detection using satellite data</p>
+    <button onclick="document.getElementById('map').scrollIntoView()">View Live Map</button>
+  </header>
+
+  <!-- Map Dashboard -->
+  <div style="width: 90%; margin: auto;">
+    <h2>Live Disaster Map</h2>
+    <div id="map"></div>
+    <div class="controls">
+      <button onclick="showLayer('flood')">🌊 Show Floods</button>
+      <button onclick="showLayer('fire')">🔥 Show Fires</button>
+      <input type="text" id="imageUrl" placeholder="Paste image URL...">
+      <button onclick="analyzeImage()">Analyze</button>
+    </div>
+    <div id="results"></div>
+  </div>
+
+  <!-- How It Works -->
+  <section style="padding: 30px; background: #f9f9f9; text-align: center;">
+    <h2>How It Works</h2>
+    <div style="display: flex; justify-content: space-around;">
+      <div><h3>1. Satellite Data</h3><p>Google Earth Engine provides real-time imagery.</p></div>
+      <div><h3>2. AI Analysis</h3><p>TensorFlow models detect disasters.</p></div>
+      <div><h3>3. MongoDB</h3><p>Locations are stored and mapped.</p></div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize map (your existing code)
+    const map = L.map('map').setView([22.9734, 78.6569], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}/png').addTo(map);
+
+    // Fetch disasters from MongoDB
+    async function loadDisasters() {
+      const response = await fetch('/api/disasters');
+      const data = await response.json();
+      data.forEach(d => {
+        L.circleMarker([d.location.coordinates[1], d.location.coordinates[0]], {
+          radius: 6, 
+          color: d.type === 'flood' ? 'blue' : 'red'
+        }).bindPopup(`<b>${d.type}</b><br>Confidence: ${d.confidence}`).addTo(map);
+      });
+    }
+    loadDisasters();
+
+    // Analyze image (your existing /detect endpoint)
+    async function analyzeImage() {
+      const url = document.getElementById('imageUrl').value;
+      const response = await fetch('/detect', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image_url: url })
+      });
+      const result = await response.json();
+      document.getElementById('results').innerHTML = `
+        <h3>Results</h3>
+        <p>Type: <strong>${result.prediction.type}</strong></p>
+        <p>Confidence: <strong>${result.prediction.confidence * 100}%</strong></p>
+      `;
+    }
+  </script>
+</body>
+</html>

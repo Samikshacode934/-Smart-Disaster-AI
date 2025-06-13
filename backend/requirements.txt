@@ -1,0 +1,7 @@
+flask==2.3.2
+pymongo==4.5.0
+python-dotenv==1.0.0
+transformers==4.33.3
+tensorflow-hub==0.14.0
+earthengine-api==0.1.370
+gunicorn==21.2.0

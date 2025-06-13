@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Live Map | Smart Disaster AI{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Map Column -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>Disaster Map</h5>
+                    <div class="btn-group">
+                        <button id="flood-toggle" class="btn btn-sm btn-outline-primary active">🌊 Floods</button>
+                        <button id="fire-toggle" class="btn btn-sm btn-outline-danger active">🔥 Fires</button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div id="map" style="height: 70vh;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Panel -->
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Analyze Image</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <input type="text" id="image-url" class="form-control" placeholder="Paste image URL...">
+                    </div>
+                    <button id="analyze-btn" class="btn btn-primary w-100">Run AI Detection</button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Results</h5>
+                </div>
+                <div id="results" class="card-body">
+                    <p class="text-muted">No analysis yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}
