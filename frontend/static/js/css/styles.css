@@ -1,18 +1,21 @@
 /* Custom Styles */
 .hero-section {
-    background: linear-gradient(rgba(199, 36, 36, 0.7)3, 0.7), rgba(0,0,0,0.7)), 
+    background: linear-gradient(rgba(199, 36, 36, 0.7), rgba(0, 0, 0, 0.7)),
                 url('https://via.placeholder.com/1920x600?text=Satellite+Background');
     background-size: cover;
+    background-position: center;
     color: white;
     padding: 100px 0;
 }
+
 
 .feature-icon {
     font-size: 3rem;
 }
 
 #map {
-    border-radius: 5px;
+     height: 500px;
+    width: 100%;
 }
 
 .card {

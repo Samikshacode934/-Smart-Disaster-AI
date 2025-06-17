@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 import tensorflow as tf
+from pathlib import Path
+
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env")
 
 # 1. Configure environment to suppress TensorFlow warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all TensorFlow messages

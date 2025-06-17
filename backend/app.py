@@ -7,12 +7,20 @@ import services.gee_data_fetcher as gee_data_fetcher
 from transformers import pipeline
 import tensorflow_hub as hub
 import tensorflow as tf
+
 tf.config.set_visible_devices([], 'GPU')  # Hide GPU
 physical_devices = tf.config.list_physical_devices('CPU')  # Use CPU only
 
 # Load environment variables
 load_dotenv()
-app = Flask(__name__)
+
+# Initialize Flask with custom template and static folders
+app = Flask(
+    __name__,
+            template_folder='../frontend/templates',
+            static_folder='../frontend/static'
+            )
+
 
 # --- AI Models Initialization ---
 # Free disaster classifier (small CPU-friendly model)
@@ -72,9 +80,9 @@ def detect_disaster():
         })
         
         return jsonify({
-            "status": "success",
-            "inserted_id": str(results.inserted_id),  # Return the ID
-            "prediction": prediction
+    "status": "success",
+    "inserted_id": str(result.inserted_id),  
+    "prediction": prediction
         })
 
     except Exception as e:
@@ -100,6 +108,15 @@ def get_similar():
         return jsonify(disasters)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/api/disasters")
+def get_disasters():
+    try:
+        disasters = list(db.disasters.find({}, {"_id": 0}))  # Exclude _id for cleaner JSON
+        return jsonify(disasters)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -92,13 +92,5 @@ document.getElementById('analyze-btn').addEventListener('click', async function(
     }
 });
 
-db.disasters.insertOne({
-  type: "test",
-  location: { type: "Point", coordinates: [77.2, 28.6] },
-  timestamp: new Date(),
-  confidence: 0.95,
-  image_url: "https://example.com/test.jpg"
-})
-
 // Initial Load
 loadDisasters();
