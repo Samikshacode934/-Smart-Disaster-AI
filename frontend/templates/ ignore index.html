@@ -48,7 +48,10 @@
   <script>
     // Initialize map (your existing code)
     const map = L.map('map').setView([22.9734, 78.6569], 5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}/png').addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
 
     // Fetch disasters from MongoDB
     async function loadDisasters() {
