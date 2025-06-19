@@ -63,9 +63,8 @@ def detect():
         if not image_url:
             return jsonify({'error': 'No image URL provided'}), 400
 
-        # Your existing detection logic here...
         prediction = MODEL_FOR_NEXT_SENTENCE_PREDICTION_MAPPING(image_url)  # hypothetical function
-
+        
         # Save to MongoDB
         result = Collection.insert_one({
             'type': prediction['type'],
