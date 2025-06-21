@@ -42,7 +42,7 @@ Smart_Disaster_Ai/
 | **MongoDB Atlas**   | Scalable disaster data storage                       |
 | **Leaflet.js**      | Open-source JS library to render interactive maps in the browser        |
 | **Google Earth Engine (GEE)** | Fetch satellite imagery and geospatial data for training/analysis |
-| **Transformers (Hugging Face)** | Robust model (`ViT` or similar) used for image classification |
+| **Transformers (Hugging Face)** | pretrained ResNet-50 CNN model used for image classification |
 | **HTML + CSS + JS** | Frontend logic and responsive UI                                        |
 | **Bootstrap 5**     | Modern UI components and responsiveness                                 |
 |- **Interactive Dashboard**   | Leaflet.js map visualizationn                                      |
