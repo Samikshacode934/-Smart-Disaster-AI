@@ -48,7 +48,7 @@ Smart_Disaster_Ai/
 |- **Interactive Dashboard**   | Leaflet.js map visualizationn                                      |
 
 > **Why Transformer Model?**  
-> Visual Transformers (ViT) outperform CNNs in many image classification tasks with fewer parameters and higher accuracy, especially on high-resolution satellite imagery.
+> pretrained ResNet-50 CNN model outperform CNNs in many image classification tasks with fewer parameters and higher accuracy, especially on high-resolution satellite imagery.
 
 
 1. Clone the Repository
